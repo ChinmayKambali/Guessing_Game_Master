@@ -1,0 +1,290 @@
+import java.util.HashSet;
+import java.util.Scanner;
+public class GUESSING_GAME 
+{
+    public static void game_master()
+    {
+        Scanner sc=new Scanner(System.in);
+        System.out.println("You will have control over the number");
+        System.out.println("Enter a random number and wait for the system to guess it");
+        System.out.println(""); //System.out.println("Points to be noted-\n1. ");
+        System.out.println("Give the ENDING range for the game: ");
+        int range=sc.nextInt();//to get end range from user 
+        System.out.println("Enter a random number within the range: ");//to enter a number between 1 to that range
+        int num=sc.nextInt();
+        int count=0;//to count number of attempts
+        HashSet<Integer> guessedNumbers = new HashSet<>(); // to track guessed numbers
+        for(int i=0;i<=10000;i++)
+        {
+            count++;
+            int random;
+            do 
+            {
+                random = (int) (Math.random() * range) + 1; // assigning a random value to the system
+            }
+            while (guessedNumbers.contains(random)); // ensure it's not a repeat
+
+            guessedNumbers.add(random);
+            if(random==num)
+            {
+                System.out.println("NUMBER HAS BEEN GUESSED!!");
+                System.out.println("System guessed: "+random+"\nRandom Number: "+random);
+                System.out.println("No. of Attempts: "+count+"\n");
+                break;
+                
+            }
+            else
+            {
+                System.out.println("The System guessed "+random+" as the number\n");
+                continue;
+            }
+        }
+    }
+    public static void easy()
+    {
+        Scanner nm=new Scanner(System.in);
+        System.out.println("Mode: Easy");
+        System.out.println("No. of Attempts: Unlimited (along with HINTS to help you)");
+        System.out.println("ALL THE BEST!\n");
+        System.out.println("Give the ENDING range for the game: ");
+        int range=nm.nextInt();//to get end range from user 
+        System.out.println("Enter a number between 1 to "+range+" :");//to enter a number between 1 to that range 
+        int count=0;//to count number of attempts
+        boolean isprime=true;//to check if number is prime or not 
+        int random=(int)(Math.random()*range)+1;//assigning a random value to the system
+        for (int i=1;i<=10000;i++)//loop to check if guess is write or wrong
+        {
+            count++;
+            int guess=nm.nextInt();
+            if(guess==random)
+            {
+                System.out.println("ABSOLUTELY SPOT ON!");
+                System.out.println("Random number: "+random);
+                System.out.println("No. of Attempts: "+count);
+                break;
+            }
+            else 
+            {
+                System.out.println("TRY AGAIN :(");
+                if(guess>random)
+                {
+                    System.out.println("Try guessing a little LOWER");
+                }
+                else
+                {
+                    System.out.println("Try guessing a little HIGHER");
+                }
+                for(int j=1;count>=2;j++)//HINT 1 will pop up after 2 wrong attempts
+                {
+                    if(count>=3)
+                    break;
+                    if(random%2==0)
+                    {
+                        System.out.println("HINT 1: IT IS AN EVEN NUMBER");
+                        break;
+                    }
+                    else
+                    {
+                        System.out.println("HINT 1: IT IS AN ODD NUMBER");
+                        break;
+                    }
+                }
+                for(int k=1;count>=4;k++)//HINT 2 will pop up after 4 wrong attempts
+                {
+                    if(count>=5)
+                    break;
+                    int half=range/2;
+                    if(random>half)
+                    {
+                        System.out.println("HINT 2: Random No. is in the Greater Half");
+                        break;
+                    }
+                    else
+                    {
+                        System.out.println("HINT 2: Random No. is in the Lesser Half");
+                        break;
+                    }
+                }
+                for(int l=1;count>=6;l++)//HINT 3 will pop up after 6 wrong attempts
+                {
+                    if(count>=7)
+                    break;
+                    for(int m=2;m<random;m++)
+                    {
+                        if((random%m)==0)
+                        {
+                            isprime=false;
+                            break;
+                        }
+  
+                    }
+                    if(isprime)
+                    {
+                        System.out.println("HINT 3: Random No. is a Prime Number");
+                        break;
+                    } 
+                    else
+                    {
+                        System.out.println("HINT 3: Random No. is NOT a Prime Number");
+                        break;
+                    }
+                }
+                System.out.println("No. of Attempts: "+count+"\n");
+            }//closing the ELSE BLOCK
+        }//closing the FOR LOOP for EASY method
+    }
+    public static void moderate()
+    {
+        Scanner cj=new Scanner(System.in);
+        System.out.println("Mode: Moderate");
+        System.out.println("Give the ENDING range for the game: ");
+        int range=cj.nextInt();//to get end range from user 
+        int attempts=range/2;//to find half the range for the NO. OF ATTEMPTS
+        System.out.println("\nNo. of Attempts: "+attempts);
+        System.out.println("ALL THE BEST!\n");
+        System.out.println("Enter a number btw 1 to "+range+" :");//to enter a number between 1 to that range 
+        int count=0;//to count number of attempts
+        int random=(int)(Math.random()*range)+1;//assigning a random value to the system
+        for (int i=1;i<=attempts;i++)//loop to check if guess is write or wrong
+        {
+            count++;
+            int guess=cj.nextInt();
+            if(guess==random)
+            {
+                System.out.println("ABSOLUTELY SPOT ON!");
+                System.out.println("Random number: "+random);
+                System.out.println("No. of Attempts: "+count);
+                break;
+            }
+            else
+            {
+                System.out.println("TRY AGAIN :(");
+                System.out.println("No. of Attempts made: "+count+"\n");
+            }
+            if(count==attempts)
+            {
+                System.out.println("You have lost :(");
+                System.out.println("Random number was: "+random);
+            }
+        }//closing the FOR LOOP for MODERATE method
+    }
+    public static void hard()
+    {
+        Scanner ka=new Scanner(System.in);
+        System.out.println("Mode: Hard");
+        System.out.println("Give the ENDING range for the game: ");
+        int range=ka.nextInt();//to get end range from user 
+        int attempts=range/3;//to find 1/3 of the range for the NO. OF ATTEMPTS
+        System.out.println("\nNo. of Attempts: "+attempts);
+        System.out.println("ALL THE BEST!\n");
+        System.out.println("Enter a number btw 1 to "+range+" :");//to enter a number between 1 to that range 
+        int count=0;//to count number of attempts
+        int random=(int)(Math.random()*range)+1;//assigning a random value to the system
+        for (int i=1;i<=attempts;i++)//loop to check if guess is write or wrong
+        {
+            count++;
+            int guess=ka.nextInt();
+            if(guess==random)
+            {
+                System.out.println("ABSOLUTELY SPOT ON!");
+                System.out.println("Eandom number: "+random);
+                System.out.println("No. of Attempts: "+count);
+                break;
+            }
+            else
+            {
+                System.out.println("TRY AGAIN :(");
+                System.out.println("Number of attempts made: "+count+"\n");
+            }
+            if(count==attempts)
+            {
+                System.out.println("You have lost :(");
+                System.out.println("Random number was: "+random);
+            }
+        }//closing the FOR LOOP for HARD method
+    }
+    public static void main(String[] args)
+    {
+        Scanner sc=new Scanner(System.in);
+        System.out.println("\nHello and welcome to the Guessing Game! \nWould you like to be the 'Game Master' or the 'Player' ?");
+        String ans=sc.nextLine();
+        String ab= new String("game master");
+        if(ans.equalsIgnoreCase(ab))
+        {
+            System.out.println("\nMode: Game Master");
+            game_master();
+        }
+        else
+        {
+            System.out.println("\nThe Difficulty options are as follows: ");
+            System.out.println("1. Easy\n2. Moderate\n3. Hard ");
+            System.out.print("\nPlease select the OPTION OF DIFFICULTY in terms of NUMBERS: ");
+            int difficulty=sc.nextInt();
+            switch (difficulty)
+            {
+                case 1:
+                {
+                    easy();
+                    break; //jumping out of the SWITCH LOOP
+                } //closing SWITCH CASE 1 BLOCK
+                case 2:
+                {
+                    moderate();
+                    break; //jumping out of the SWITCH LOOP 
+                } //closing SWITCH CASE 2 BLOCK
+                case 3:
+                {
+                    hard();
+                    break; //jumping out of the SWITCH LOOP 
+                } //closing SWITCH CASE 3 BLOCK
+            } //closing SWITCH BLOCK 
+        }
+        System.out.println("\nWould you like to play the game again?");
+        System.out.println("Yes/No");
+        String answer=sc.next();
+        String answer1=answer.toLowerCase();
+        if(answer1.equals("yes"))
+        {
+            System.out.println("\nWould you like to be the 'Game Master' or the 'Player' ?");
+            String reply=sc.nextLine();
+            String ab1= new String("game master");
+            if(reply.equalsIgnoreCase(ab1))
+            {
+                System.out.println("\nMode: Game Master");
+                game_master();
+            }
+            else 
+            {
+                System.out.println("The options are:");
+                System.out.println("1. Easy\n2. Moderate\n3. Hard ");
+                System.out.print("Please select the OPTION OF DIFFICULTY in terms of NUMBERS: ");
+                int select=sc.nextInt();
+                switch(select)
+                {
+                    case 1: 
+                    {
+                        easy();
+                        break;
+                    }
+                    case 2: 
+                    {
+                        moderate();
+                        break;
+                    }
+                    case 3: 
+                    {
+                        hard();
+                        break;
+                    }
+                } //closing SWITCH BLOCK
+            } //closing else BLOCK
+        }
+        else
+        {
+            System.out.println("\nNo worries, you can always revisit the game. Have a great day!");
+            System.out.println("");
+        } //closing ELSE BLOCK
+
+
+    } //closing the main
+} //closing the class
